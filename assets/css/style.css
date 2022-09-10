@@ -1,0 +1,133 @@
+:root {
+  --primary-color: #a7bcff;
+  --primary-color-light: #c6d3fcae;
+  --primary-color-dark: #88a4ff;
+  --secondary-color: #a7bcff;
+  --secondary-color-light: #a7bcff;
+  --text-color: black;
+  --text-color-light: rgb(58, 58, 58);
+  --text-color-white: white;
+  --largest-font-size: 4rem;
+  --large-font-size: 2.5rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.8rem;
+  --font-weight-boldest: 800;
+  --font-weight-bolder: 700;
+  --font-weight-bold: 600;
+  --font-weight-normal: 500;
+  --font-weight-light: 300;
+}
+:root * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root input {
+  outline: none;
+}
+:root button {
+  border: none;
+  outline: none;
+}
+:root a {
+  text-decoration: none;
+}
+:root li {
+  list-style: none;
+}
+
+.formContainer {
+  height: 100vh;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer .formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  padding: 2rem 3rem;
+  background-color: var(--text-color-white);
+  border-radius: 10px;
+  max-width: max-content;
+}
+.formContainer .formWrapper .logo {
+  font-size: var(--large-font-size);
+  font-weight: var(--font-weight-boldest);
+  color: var(--primary-color-dark);
+}
+.formContainer .formWrapper .title {
+  color: var(--primary-color-dark);
+  font-size: var(--small-font-size);
+}
+.formContainer .formWrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.formContainer .formWrapper form input[type=text],
+.formContainer .formWrapper form input[type=email],
+.formContainer .formWrapper form input[type=password] {
+  outline: none;
+  height: 50px;
+  border: none;
+  border-bottom: 1px solid var(--primary-color);
+  background: transparent;
+  font-size: var(--normal-font-size);
+  width: 250px;
+}
+.formContainer .formWrapper form input[type=text]::placeholder,
+.formContainer .formWrapper form input[type=email]::placeholder,
+.formContainer .formWrapper form input[type=password]::placeholder {
+  color: var(--primary-color-light);
+}
+.formContainer .formWrapper form label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.formContainer .formWrapper form label img {
+  width: 32px;
+}
+.formContainer .formWrapper form label span {
+  color: var(--primary-color-dark);
+  font-size: var(--small-font-size);
+}
+.formContainer .formWrapper form button {
+  background-color: var(--primary-color-dark);
+  color: white;
+  padding: 10px 12px;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  margin-top: 0.8rem;
+}
+.formContainer .formWrapper p {
+  font-size: var(--small-font-size);
+}
+
+.home {
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.home .container {
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 60%;
+  height: 80%;
+  display: flex;
+  overflow: hidden;
+}
+.home .container .sidebar {
+  flex: 1;
+  background-color: #3e3c61;
+}
+.home .container .chat {
+  flex: 2;
+}
