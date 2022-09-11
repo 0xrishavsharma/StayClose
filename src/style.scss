@@ -196,11 +196,7 @@
     }
 
     .search {
-        color: #ddddf7;
         border-bottom: 1px solid grey;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
 
         .searchForm {
             padding: 10px;
@@ -232,6 +228,49 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
+        }
+
+        .userChatInfo {
+            span {
+                font-weight: var(--font-weight-bold);
+                font-size: var(--normal-font-size);
+                color: #ddddf7;
+            }
+
+            p {
+                font-size: 14px;
+                color: lightgrey;
+            }
+        }
+    }
+}
+
+// Chat
+.chat {
+
+
+    .chatNav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        padding: 10px;
+        background-color: #5d5b8b;
+        color: lightgrey;
+
+        span {
+            color: #ddddf7;
+        }
+
+        .chatNavImgs {
+            display: flex;
+            gap: 10px;
+
+            img {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+            }
         }
     }
 }
