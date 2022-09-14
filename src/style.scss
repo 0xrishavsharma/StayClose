@@ -1,3 +1,27 @@
+@mixin mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media screen and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin laptopLarge {
+    @media screen and (min-width: 12oopx) {
+        @content;
+    }
+}
+
 :root {
     // Theme colors
     --primary-color: #a7bcff;
@@ -25,7 +49,7 @@
     * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
+        // box-sizing: border-box;
     }
 
     input {
@@ -145,13 +169,12 @@
         display: flex;
         overflow: hidden;
 
-        .sidebar {
-            flex: 1;
-            background-color: #3e3c61;
+        @include tablet {
+            width: 90%;
         }
 
-        .chat {
-            flex: 2;
+        @include laptop() {
+            width: 80%;
         }
 
 
@@ -160,6 +183,10 @@
 
 // Sidebar
 .sidebar {
+    flex: 1;
+    background-color: #3e3c61;
+    position: relative;
+
     .navbar {
         display: flex;
         justify-content: space-between;
@@ -169,7 +196,13 @@
         color: #ddddf7;
         background-color: #2f2d52;
 
-        .logo {}
+        .logo {
+            font-weight: bold;
+
+            @include laptop {
+                display: none;
+            }
+        }
 
         .user {
             display: flex;
@@ -191,6 +224,10 @@
                 border: none;
                 color: #ddddf7;
                 cursor: pointer;
+                position: absolute;
+                bottom: 1rem;
+                left: 10px;
+
             }
         }
     }
@@ -247,7 +284,7 @@
 
 // Chat
 .chat {
-
+    flex: 2;
 
     .chatNav {
         display: flex;
@@ -270,6 +307,113 @@
                 width: 24px;
                 height: 24px;
                 cursor: pointer;
+            }
+        }
+    }
+
+    // Messages
+    .messages {
+        background-color: #ddddf7;
+        height: calc(100% - 180px);
+        padding: 20px;
+        overflow-y: scroll;
+
+        .message {
+            display: flex;
+            gap: 1.2rem;
+            // align-items: center;
+            margin-bottom: 30px;
+
+            .messageInfo {
+                display: flex;
+                flex-direction: column;
+                // gap: 10px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                span {
+                    color: grey;
+                    font-weight: 300;
+                    font-size: 12px;
+                }
+            }
+
+            .messageContent {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-end;
+
+                span {
+                    padding: 10px 20px;
+                    background-color: white;
+                    max-width: max-content;
+                    border-radius: 0px 5px 5px 5px;
+                }
+
+                img {
+                    width: 50%;
+
+                }
+
+                span {}
+            }
+
+            &.owner {
+                flex-direction: row-reverse;
+
+                .messageContent {
+                    span {
+                        background-color: #8da4f1;
+                        color: white;
+                        border-radius: 5px 0px 5px 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    // Input{
+    .input {
+        height: 50px;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+            border: none;
+            width: 100%;
+            color: #2f2d52;
+            font-size: 18px;
+
+            &::placeholder {
+                color: lightgrey;
+            }
+        }
+
+        .inputOptions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: #a7bcff;
+
+            img {
+                height: 20px;
+                cursor: pointer;
+            }
+
+            button {
+                cursor: pointer;
+                padding: 10px 15px;
+                color: white;
+                background-color: #8da4f1;
             }
         }
     }

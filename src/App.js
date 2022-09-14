@@ -4,19 +4,32 @@ import Home from "./pages/Home";
 import "./style.scss";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
-import { useEffect } from "react";
-
+import { useContext, useEffect } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 
 
 
 function App() {
+  const { currentUser } = useContext(AuthContext)
+  console.log(currentUser);
+
   return (
-    <div className="home">
-      <div className="container">
-        <Sidebar />
-        <Chat />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
