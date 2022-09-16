@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
@@ -29,7 +29,6 @@ const Register = () => {
         // Creating user 
         try {
             const res = await createUserWithEmailAndPassword(auth, userEmail, userPassword)
-            console.log(res.user)
 
             // Uploading files
             const storageRef = ref(storage, displayName);
@@ -55,6 +54,7 @@ const Register = () => {
                     });
                 }
             );
+            console.log(res.user.displayName)
         } catch (error) {
             setErr(true);
         }
@@ -94,17 +94,20 @@ const Register = () => {
                 <span className="logo">Stay Close</span>
                 <span className="title">Register</span>
                 <form onSubmit={handleSubmit}>
-                    <input required type="text" placeholder='Name' />
-                    <input required type="email" placeholder='Email' />
-                    <input required type="password" placeholder='Password' minLength="6" />
-                    <input required style={{ display: "none" }} type="file" id='file' />
-                    <label required style={{ cursor: "pointer" }} htmlFor="file">
+                    <input type="text" placeholder='Name' required />
+                    <input type="email" placeholder='Email' required />
+                    <input type="password" placeholder='Password' minLength="6" required />
+                    <input type="file" name="file-input" id="if" />
+                    {/* <input type="file" id="file" name='file-input' accept='.png .jpeg' />
+                    <label required htmlFor="file">
                         <img src={addAvatar} alt="" />
                         <span>Choose your avatar</span>
-                    </label>
-                    <button>Sign up</button>
+                    </label> */}
+                    <button type='button'>Sign up</button>
                 </form>
-                <p>You do have an account? <a href=""> Login</a></p>
+                <p>You do have an account?
+                    <Link to="/login"> Login</Link>
+                </p>
                 <span id='submitMsg' style={{ fontSize: "12px", display: "none", transition: "0.3s" }} ></span>
             </div>
         </div>
