@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
@@ -25,36 +25,39 @@ const Register = () => {
         const userEmail = e.target[1].value;
         const userPassword = e.target[2].value;
         const userFile = e.target[3].files[0];
+        console.log(displayName);
 
         // Creating user 
         try {
             const res = await createUserWithEmailAndPassword(auth, userEmail, userPassword)
-            console.log(res.user)
 
             // Uploading files
             const storageRef = ref(storage, displayName);
-            const uploadTask = uploadBytesResumable(storageRef, userFile);
+            const uploadTask = uploadBytesResumable(storageRef, userFile)
+                .then(async () => {
+                    getDownloadURL(storageRef).then(async (downloadURL) => {
+                        try {
+                            // Update profile by adding name and photoURL
+                            await updateProfile(res.user, {
+                                displayName,
+                                photoURL: downloadURL
+                            });
+                            // create user on firestore
+                            await setDoc(doc(db, "users", res.user.uid), {
+                                uid: res.user.uid,
+                                displayName,
+                                userEmail,
+                                photoURL: downloadURL
+                            });
+                            // Create empty user chats on firestore
+                            await setDoc(doc(db, "userChats", res.user.uid), {})
+                        } catch (error) {
+                            console.log(error)
+                            setErr(true);
+                        }
 
-            uploadTask.on(
-                (error) => {
-                    setErr(true)
-                },
-                async () => {
-                    await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                        await updateProfile(res.user, {
-                            displayName,
-                            photoURL: downloadURL
-                        });
-                        await setDoc(doc(db, "users", res.user.uid), {
-                            uid: res.user.uid,
-                            displayName,
-                            userEmail,
-                            photoURL: downloadURL
-                        });
-                        await setDoc(doc(db, "userChats", res.user.uid), {})
                     });
-                }
-            );
+                })
         } catch (error) {
             setErr(true);
         }
@@ -94,17 +97,32 @@ const Register = () => {
                 <span className="logo">Stay Close</span>
                 <span className="title">Register</span>
                 <form onSubmit={handleSubmit}>
-                    <input required type="text" placeholder='Name' />
-                    <input required type="email" placeholder='Email' />
-                    <input required type="password" placeholder='Password' minLength="6" />
-                    <input required style={{ display: "none" }} type="file" id='file' />
-                    <label required style={{ cursor: "pointer" }} htmlFor="file">
+                    <input required type="text" placeholder='Name' required />
+                    <input required type="email" placeholder='Email' required />
+                    <input required type="password" placeholder='Password' minLength="6" required />
+                    <input required type="file" id="file" name='file-input' accept='.png, .jpeg, .webp, .jpg' />
+                    <label htmlFor="file">
                         <img src={addAvatar} alt="" />
                         <span>Choose your avatar</span>
                     </label>
-                    <button>Sign up</button>
+                    <button >Sign up</button>
                 </form>
-                <p>You do have an account? <a href=""> Login</a></p>
+                {/* <form onSubmit={handleSubmit}>
+                    <input required type="text" placeholder="display name" />
+                    <input required type="email" placeholder="email" />
+                    <input required type="password" placeholder="password" />
+                    <input required type="file" id="file" />
+                    <label htmlFor="file">
+                        <img src={addAvatar} alt="" />
+                        <span>Add an avatar</span>
+                    </label>
+                    <button >Sign up</button>
+                    {loading && "Uploading and compressing the image please wait..."}
+                    {err && <span>Something went wrong</span>}
+                </form> */}
+                <p>You do have an account?
+                    <Link to="/login"> Login</Link>
+                </p>
                 <span id='submitMsg' style={{ fontSize: "12px", display: "none", transition: "0.3s" }} ></span>
             </div>
         </div>
