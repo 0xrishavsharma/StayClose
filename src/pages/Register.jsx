@@ -97,9 +97,9 @@ const Register = () => {
                 <span className="logo">Stay Close</span>
                 <span className="title">Register</span>
                 <form onSubmit={handleSubmit}>
-                    <input required type="text" placeholder='Name' required />
-                    <input required type="email" placeholder='Email' required />
-                    <input required type="password" placeholder='Password' minLength="6" required />
+                    <input required type="text" placeholder='Name' />
+                    <input required type="email" placeholder='Email' />
+                    <input required type="password" placeholder='Password' minLength="6" />
                     <input required type="file" id="file" name='file-input' accept='.png, .jpeg, .webp, .jpg' />
                     <label htmlFor="file">
                         <img src={addAvatar} alt="" />
