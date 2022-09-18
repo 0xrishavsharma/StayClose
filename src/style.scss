@@ -122,9 +122,14 @@
             }
 
             input[type="file"] {
+<<<<<<< HEAD
                 display: block !important;
                 height: 0px;
                 opacity: 0;
+=======
+                // display: none;
+                // opacity: 0;
+>>>>>>> 42f5d40c202d7c9bb75a46415f72e78a2206d262
             }
 
             label {

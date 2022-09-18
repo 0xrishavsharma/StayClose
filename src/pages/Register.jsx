@@ -61,35 +61,35 @@ const Register = () => {
         } catch (error) {
             setErr(true);
         }
-
-        if (err) {
-            console.log("this is the error", err)
-            let submitMsg = document.getElementById('submitMsg')
-            submitMsg.innerHTML = "Something went wrong! Please try again";
-            submitMsg.style.color = "red"
-            submitMsg.style.display = "unset";
-            submitMsg.style.transition = "0.3s"
-            setTimeout(() => {
-                submitMsg.innerHTML = "";
-                submitMsg.style.display = "none";
-            }, 5000);
-        }
-        // if (!err) {
-        //     let submitMsg = document.getElementById('submitMsg');
-        //     submitMsg.innerHTML = "Successfully registered, please login to continue";
-        //     submitMsg.style.color = "green";
-        //     submitMsg.style.display = "unset";
-        //     submitMsg.style.transition = "0.3s"
-        //     setTimeout(() => {
-        //         submitMsg.innerHTML = "";
-        //         submitMsg.style.display = "none";
-        //     }, 10000);
-        // }
-
-        // After successfully registering automatically navigating the user to the home page
-        navigate("/");
-
     }
+
+    if (err) {
+        console.log("this is the error", err)
+        let submitMsg = document.getElementById('submitMsg')
+        submitMsg.innerHTML = "Something went wrong! Please try again";
+        submitMsg.style.color = "red"
+        submitMsg.style.display = "unset";
+        submitMsg.style.transition = "0.3s"
+        setTimeout(() => {
+            submitMsg.innerHTML = "";
+            submitMsg.style.display = "none";
+        }, 5000);
+    }
+    // if (!err) {
+    //     let submitMsg = document.getElementById('submitMsg');
+    //     submitMsg.innerHTML = "Successfully registered, please login to continue";
+    //     submitMsg.style.color = "green";
+    //     submitMsg.style.display = "unset";
+    //     submitMsg.style.transition = "0.3s"
+    //     setTimeout(() => {
+    //         submitMsg.innerHTML = "";
+    //         submitMsg.style.display = "none";
+    //     }, 10000);
+    // }
+
+    // After successfully registering automatically navigating the user to the home page
+    navigate("/");
+
 
     return (
         <div className='formContainer'>
@@ -107,19 +107,6 @@ const Register = () => {
                     </label>
                     <button >Sign up</button>
                 </form>
-                {/* <form onSubmit={handleSubmit}>
-                    <input required type="text" placeholder="display name" />
-                    <input required type="email" placeholder="email" />
-                    <input required type="password" placeholder="password" />
-                    <input required type="file" id="file" />
-                    <label htmlFor="file">
-                        <img src={addAvatar} alt="" />
-                        <span>Add an avatar</span>
-                    </label>
-                    <button >Sign up</button>
-                    {loading && "Uploading and compressing the image please wait..."}
-                    {err && <span>Something went wrong</span>}
-                </form> */}
                 <p>You do have an account?
                     <Link to="/login"> Login</Link>
                 </p>

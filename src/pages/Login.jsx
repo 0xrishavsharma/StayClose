@@ -29,6 +29,7 @@ const Login = () => {
                 <span className="logo">Stay Close</span>
                 <span className="title">Login</span>
                 {/* <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <input type="email" placeholder='Email' />
                     <input type="password" placeholder='Password' />
                     {errMsg && <span>Something went wrong!</span>}
@@ -40,7 +41,7 @@ const Login = () => {
                     <button>Sign in</button>
                     {errMsg && <span>Something went wrong</span>}
                 </form>
-                <p>Don't have an account?
+                <p>Don't have an account??
                     <Link to="/register"> Register</Link>
                 </p>
             </div>
