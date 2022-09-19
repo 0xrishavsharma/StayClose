@@ -2,16 +2,17 @@ import { doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { useContext, useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { AuthContext } from "../context/AuthContext"
+import { ChatContext } from '../context/ChatContext';
 
 const Chats = () => {
     // getDoc(doc(db, "chats", user.id))
     const [chats, setChats] = useState([]);
 
     const { currentUser } = useContext(AuthContext);
+    const { dispatch } = useContext(ChatContext);
 
     // We aren't gonna fetch these chats only once, we are going to update them in real time
     // For that to happen we'll use firebase "onshapshot"
-
     useEffect(() => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
@@ -24,17 +25,20 @@ const Chats = () => {
         }
         currentUser.uid && getChats();
     }, [currentUser.uid])
-    console.log(Object.entries(chats))
+
+    const contactClick = (u) => {
+        dispatch({ type: "CHANGE_USER", payload: u })
+    }
 
 
     return (
         <div className='chats' >
-            {Object.entries(chats).map((chat, i) => (
-                <div className="userChat" key={chat[0]}>
-                    <img src={chat[i].userInfo.photoURL} alt="" />
+            {Object.entries(chats)?.map((chat, i) => (
+                <div className="userChat" key={chat[0]} onClick={() => contactClick(chat[1].userInfo)}>
+                    <img src={chat[1].userInfo.photoURL} alt="" />
                     <div className="userChatInfo">
-                        <span>Ariana Silvia</span>
-                        <p>This is going great</p>
+                        <span>{chat[1].userInfo.displayName}</span>
+                        <p>{chat[1].userInfo.lastMessage?.text}</p>
                     </div>
                 </div>
             ))}

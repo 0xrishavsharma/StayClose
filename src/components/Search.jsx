@@ -17,6 +17,7 @@ const Search = () => {
     }
     // Creating and executing query
     const handleQuery = async () => {
+        // Creating query
         const q = query(collection(db, "users"), where("displayName", "==", userName));
 
         // Executing query
