@@ -21,11 +21,12 @@ const Messages = () => {
         }
         data.chatId && getMsgs();
     }, [data.chatId])
-    console.log(messages)
+    // console.log("ChatId", data.chatId)
+    // console.log("User UID", data.user.uid)
     return (
-        <div className='messages'>
+        <div className='messages' >
             {messages.map((message, i) => (
-                <Message props={message} />
+                <Message message={message} key={message.id} />
             ))}
         </div>
     )

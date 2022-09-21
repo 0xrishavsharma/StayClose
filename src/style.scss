@@ -284,6 +284,10 @@
             p {
                 font-size: 14px;
                 color: lightgrey;
+                text-overflow: ellipsis;
+                overflow-x: hidden;
+                white-space: nowrap;
+                max-width: 145px;
             }
         }
     }
@@ -354,7 +358,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
-                align-items: flex-end;
+                align-items: flex-start;
 
                 span {
                     padding: 10px 20px;
@@ -375,6 +379,8 @@
                 flex-direction: row-reverse;
 
                 .messageContent {
+                    align-items: flex-end;
+
                     span {
                         background-color: #8da4f1;
                         color: white;
@@ -419,7 +425,7 @@
             border: none;
             width: 100%;
             color: #2f2d52;
-            font-size: 18px;
+            font-size: 15px;
 
             &::placeholder {
                 color: lightgrey;
