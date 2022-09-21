@@ -33,14 +33,11 @@ const Chats = () => {
 
     return (
         <div className='chats' >
-            {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat, i) => (
+            {chats !== "undefined" && Object.entries(chats).sort((a, b) => b[1].date - a[1].date).map((chat, i) => (
                 <div className="userChat" key={chat[0]} onClick={() => contactClick(chat[1].userInfo)}>
                     <img src={chat[1].userInfo.photoURL} alt="" />
                     <div className="userChatInfo">
                         <span>{chat[1].userInfo.displayName}</span>
-                        {
-
-                        }
                         <p>{chat[1].latestMessage?.text}</p>
                     </div>
                 </div>

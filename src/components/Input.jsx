@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 import { AuthContext } from '../context/AuthContext';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
+import { useRef } from 'react';
 
 const Input = () => {
     const [text, setText] = useState("");
@@ -17,8 +18,9 @@ const Input = () => {
     const { data } = useContext(ChatContext);
     const { currentUser } = useContext(AuthContext);
 
-    const handleSend = async () => {
+    const inputRef = useRef()
 
+    const handleSend = async () => {
         if (img) {
             // If there is a img then first upload it and then send it
             const storageRef = ref(storage, uuid()); // Here we can give anything unique instead of "uuid" it can be timestamp as well but should be something unique
@@ -45,7 +47,11 @@ const Input = () => {
                     });
                 }
             )
-        } else {
+        }
+        else if (!text && !img) {
+
+        }
+        else {
             // If there is not img, just send the text
             await updateDoc(doc(db, "chats", data.chatId), {
                 messages: arrayUnion({
@@ -75,19 +81,25 @@ const Input = () => {
 
         setImg(null)
         setText("")
+    }
 
+    const handleKeyDown = (e) => {
 
+        if (e.code === "Enter") {
+            if (img || text) { handleSend() }
+            console.log(e.code)
+        }
     }
     return (
         <div className='input'>
-            <input type="text" placeholder='Type something...' value={text} onChange={(e) => setText(e.target.value)} />
+            <input ref={inputRef} type="text" placeholder='Type something...' value={text} onKeyDown={handleKeyDown} onChange={(e) => setText(e.target.value)} />
             <div className="inputOptions">
                 <img src={Attach} alt="" />
                 <input type="file" style={{ display: "none" }} id="file" onChange={(e) => setImg(e.target.files[0])} accept=".png, .jpeg, .jpg, .webp" />
                 <label htmlFor="file">
                     <img src={FileImg} alt="" />
                 </label>
-                <button onClick={handleSend}>Send</button>
+                <button onClick={() => (img && text) ? handleSend() : null}>Send</button>
             </div>
         </div>
     )
